@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://${DATABASE_HOST_PORT}/${DATABASE_NAME}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    hikari:
+      idleTimeout: 30000
+      minimumIdle: ${IDLE_CONNECTION:10}
+    jpa:
+      show-sql: true
+      properties:
+        hibernate:
+          show_sql: true
+      hibernate:
+        dll-auto: validate
+      generate-ddl: false
+  liquibase:
+    changeLog: classpath:db/changelog/db.changelog-master.yml
+jwt:
+  secret: sparkinho
+  expireInSeconds: 1800
