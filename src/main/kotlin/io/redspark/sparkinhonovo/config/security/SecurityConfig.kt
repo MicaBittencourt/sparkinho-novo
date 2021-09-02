@@ -42,6 +42,7 @@ class SecurityConfig(
             .and()
             .authorizeRequests()
             .antMatchers(HttpMethod.POST, "/users").hasRole("ADMIN")
+            .antMatchers(HttpMethod.POST, "/login/**").permitAll()
             .anyRequest().authenticated()
             .and()
             .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)

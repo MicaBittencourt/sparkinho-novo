@@ -11,39 +11,35 @@ import java.time.OffsetDateTime
 import java.util.*
 
 @Component
-class JwtToken(
-
+class JwtToken {
     @Value("\${jwt.secret}")
-    private var secret: String? = null,
+    private val secret: String? = null
 
     @Value("\${jwt.expireInSeconds}")
-    private val expireInSeconds: Int = 0
-) {
-    fun getDateFrom(now: LocalDateTime): Date {
-        return Date.from(now.toInstant((OffsetDateTime.now().offset)))
-    }
+    private val expireInSeconds = 0
 
-    fun generateToken(nome: String?): String? {
-        val dataCriacao: Date = getDateFrom(LocalDateTime.now())
-        val dataExpiracao: Date = getDateFrom(LocalDateTime.now().plusSeconds(expireInSeconds.toLong()))
+    fun generateToken(nome: String?): String {
+        val dataCriacao = getDateFrom(LocalDateTime.now())
+        val dataExpiracao = getDateFrom(LocalDateTime.now().plusSeconds(expireInSeconds.toLong()))
+        val claims: Map<String, Any> = HashMap()
         return Jwts.builder()
+            .setClaims(claims)
             .setIssuedAt(dataCriacao)
             .setExpiration(dataExpiracao)
             .setSubject(nome)
-            .setClaims(HashMap())
             .signWith(SignatureAlgorithm.HS256, secret)
             .compact()
     }
 
-    fun getUserFromToken(token: String?): String? {
-        val claims: Claims = Jwts.parser()
+    fun getUserFromToken(token: String?): String {
+        val claims = Jwts.parser()
             .setSigningKey(secret)
             .parseClaimsJws(token)
-            .getBody()
+            .body
         return claims.subject
     }
 
-
-
+    private fun getDateFrom(now: LocalDateTime): Date {
+        return Date.from(now.toInstant(OffsetDateTime.now().offset))
+    }
 }
-

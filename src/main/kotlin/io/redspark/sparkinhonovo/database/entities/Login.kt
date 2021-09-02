@@ -1,13 +1,16 @@
 package io.redspark.sparkinhonovo.database.entities
 
+import io.redspark.sparkinhonovo.models.dtos.CreateUserLoginDTO
 import io.redspark.sparkinhonovo.models.dtos.LoginDTO
 import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.LastModifiedDate
+import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.time.LocalDateTime
 import java.util.*
 import javax.persistence.*
 
 @Entity
+@EntityListeners(AuditingEntityListener::class)
 @Table(name = "TB_LOGIN")
 data class Login(
 
@@ -24,12 +27,10 @@ data class Login(
 
 ){
 
-        constructor(loginDTO: LoginDTO) : this(
-                id = loginDTO.id,
-                username = loginDTO.username,
-                password = loginDTO.password,
-
-                )
+        constructor(createUserLoginDTO: CreateUserLoginDTO): this(
+                username = createUserLoginDTO.username,
+                password = createUserLoginDTO.password
+        )
 
         @CreatedDate
         @Column(name = "created_date")
