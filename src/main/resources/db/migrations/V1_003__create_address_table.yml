@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: V1_003
+      author: Michele Bittencourt
+      changes:
+        - createTable:
+            tableName: address
+            columns:
+              - column:
+                  name: address_id
+                  type: uuid
+                  constraints:
+                    unique: true
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: city
+                  type: VARCHAR(60)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: state
+                  type: VARCHAR(2)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_date
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_date
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false

@@ -27,11 +27,20 @@ data class User(
     @Column(name = "email")
     var email: String,
 
-    @Column(name = "state")
-    var state: String,
-
     @Column(name = "admission_date")
     var admission_date: LocalDateTime,
+
+    @OneToOne(targetEntity = Address::class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "address_id")
+    var address: Address,
+
+    @ManyToOne(targetEntity = Group::class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "group_id")
+    var group: Group,
+
+    @OneToOne(targetEntity = Role::class, fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
+    var role: Role,
 
     ){
 
@@ -43,12 +52,14 @@ data class User(
     @Column(name = "updated_date")
     lateinit var updated_date: LocalDateTime
 
-    constructor(userDto: UserDTO): this(
-        id = userDto.id,
-        name = userDto.name,
-        birthday = userDto.birthday,
-        email = userDto.email,
-        state = userDto.state,
-        admission_date = userDto.admission_date
+    constructor(userDTO: UserDTO, address: Address, group: Group, role: Role) : this(
+        id = userDTO.id,
+        name = userDTO.name,
+        birthday = userDTO.birthday,
+        email = userDTO.email,
+        admission_date = userDTO.admission_date,
+        address = address,
+        group = group,
+        role = role
     )
 }

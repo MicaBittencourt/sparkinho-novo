@@ -20,9 +20,6 @@ class UserDTO (
     @JsonProperty("email")
     val email: String,
 
-    @JsonProperty("state")
-    val state: String,
-
     @JsonProperty("admission_date")
     val admission_date: LocalDateTime
 
@@ -33,9 +30,17 @@ class UserDTO (
         name = user.name,
         birthday = user.birthday,
         email = user.email,
-        state = user.state,
         admission_date = user.admission_date
 
+    )
+
+    constructor(createUser: CreateUserDTO) : this(
+
+        id = createUser.id,
+        name = createUser.name,
+        birthday = createUser.birthday,
+        email = createUser.email,
+        admission_date = createUser.admission_date
     )
 
 }

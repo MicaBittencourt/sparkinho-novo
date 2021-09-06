@@ -29,11 +29,6 @@ databaseChangeLog:
                   constraints:
                     nullable: false
               - column:
-                  name: state
-                  type: VARCHAR(2)
-                  constraints:
-                    nullable: false
-              - column:
                   name: admission_date
                   type: DATE
                   constraints:
@@ -48,3 +43,36 @@ databaseChangeLog:
                   type: TIMESTAMP
                   constraints:
                     nullable: false
+              - column:
+                  name: address_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: group_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+              - addForeignKeyConstraint:
+                  baseColumnNames: address_id
+                  baseTableName: address
+                  constraintName: fk_user_address
+                  referencedColumnNames: address_id
+                  referencedTableName: proj_user
+              - addForeignKeyConstraint:
+                  baseColumnNames: group_id
+                  baseTableName: group
+                  constraintName: fk_user_group
+                  referencedColumnNames: group_id
+                  referencedTableName: proj_user
+              - addForeignKeyConstraint:
+                  baseColumnNames: role_id
+                  baseTableName: role
+                  constraintName: fk_user_role
+                  referencedColumnNames: role_id
+                  referencedTableName: proj_user

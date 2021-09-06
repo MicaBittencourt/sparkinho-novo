@@ -1,0 +1,30 @@
+databaseChangeLog:
+  - changeSet:
+      id: V1_004
+      author: Michele Bittencourt
+      changes:
+        - createTable:
+            tableName: tb_group
+            columns:
+              - column:
+                  name: group_id
+                  type: uuid
+                  constraints:
+                    unique: true
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(60)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_date
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: updated_date
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false

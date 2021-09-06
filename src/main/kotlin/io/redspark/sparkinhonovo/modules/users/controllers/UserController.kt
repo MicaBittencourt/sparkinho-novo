@@ -1,5 +1,6 @@
 package io.redspark.sparkinhonovo.modules.users.controllers
 
+import io.redspark.sparkinhonovo.models.dtos.CreateUserDTO
 import io.redspark.sparkinhonovo.models.dtos.UserDTO
 import io.redspark.sparkinhonovo.models.dtos.UserListDTO
 import io.redspark.sparkinhonovo.modules.users.service.UserService
@@ -21,8 +22,8 @@ class UserController (
     }
 
     @PostMapping
-    fun createUser(@RequestBody @Valid userDTO: UserDTO):UserDTO{
-        return userService.createUser(userDTO)
+    fun createUser(@RequestBody @Valid createUserDTO: CreateUserDTO):UserDTO{
+        return userService.createUser(createUserDTO)
     }
 
     @DeleteMapping("{id}")
